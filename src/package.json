@@ -3,7 +3,7 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "5.3.1",
+    "bootstrap": "5.3.2",
     "jquery": "3.7.1",
     "tabulator-tables": "5.5.2"
   }
