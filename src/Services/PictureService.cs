@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Unidecode.NET;
 
 namespace StreetBook.Services;
 
@@ -26,7 +27,7 @@ public class PictureService : IPictureService
     private static string GetPicturePath(IHostEnvironment hostEnvironment, string fileName)
     {
         var basePath = hostEnvironment.IsProduction() ? "/data/Data" : $"{hostEnvironment.ContentRootPath}/Data";
-        var picturePath = Path.Combine(basePath, $"{fileName}.jpg");
+        var picturePath = Path.Combine(basePath, $"{fileName.Unidecode()}.jpg");
         return picturePath;
     }
 }
