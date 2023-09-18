@@ -22,6 +22,11 @@
             <tr>
                 <td>@person.HouseNumber</td>
                 <td>@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")</td>
+                @* <td>
+                    <a href="@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")" class="profile-pic">
+                        <img src="@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")" class="img-thumbnail" width="100" />
+                    </a>
+                </td> *@
                 <td>@person.Name</td>
             </tr>
         }
@@ -30,25 +35,49 @@
 
 @section Stylesheets
 {
-    <link href="/css/tabulator_bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tabulator_bootstrap5.min.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
 }
 
 @section Scripts
 {
     <script src="/js/tabulator.min.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+
     <script>
         var table = new Tabulator("#streetBookTable", {
             layout:"fitDataStretch",
             height:"100%",
             columns:[
-                {title:"Huisnummer", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},
-                {title:"Foto", field:"photo", formatter:"image", formatterParams:{ width:"100px" }},
-                {title:"Naam", field:"name", headerFilter:"input"},
+                { title:"Huisnummer", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true} },
+                { title:"Foto", field:"photo", headerSort:false, formatter:function(cell, formatterParams, onRendered) {                    
+                    var image = document.createElement("img");
+                    image.setAttribute("src", cell.getValue());
+                    image.setAttribute("class", "img-thumbnail");
+                    image.style.width = "100px";
+                    image.addEventListener("load", function(){
+                        cell.getRow().normalizeHeight();
+                    });
+
+                    var link = document.createElement("a");
+                    link.setAttribute("href", cell.getValue());
+                    link.setAttribute("class", "profile-pic");
+                    link.appendChild(image);
+
+	                return link;
+                }, },
+                { title:"Naam", field:"name", headerFilter:"input" },
             ],
             groupBy:"houseNumber",
             groupHeader:function(value, count, data, group){
                 return `Huisnummer ${value}`;
             },
         });
+
+        $(document).ready(function() {
+            $('.profile-pic').magnificPopup({
+                type: 'image'
+            });
+        }); 
     </script>
 }

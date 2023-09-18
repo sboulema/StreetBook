@@ -16,9 +16,11 @@
 	<Copy SourceFiles="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" DestinationFolder="wwwroot/js" />
 	<Copy SourceFiles="node_modules/jquery/dist/jquery.min.js" DestinationFolder="wwwroot/js" />
     <Copy SourceFiles="node_modules/tabulator-tables/dist/js/tabulator.min.js" DestinationFolder="wwwroot/js" />
+    <Copy SourceFiles="node_modules/magnific-popup/dist/jquery.magnific-popup.min.js" DestinationFolder="wwwroot/js" />
 
 	  <Message Text="Copying CSS files" />
 	  <Copy SourceFiles="node_modules/bootstrap/dist/css/bootstrap.min.css" DestinationFolder="wwwroot/css" />
     <Copy SourceFiles="node_modules/tabulator-tables/dist/css/tabulator_bootstrap5.min.css" DestinationFolder="wwwroot/css" />
+    <Copy SourceFiles="node_modules/magnific-popup/dist/magnific-popup.css" DestinationFolder="wwwroot/css" />
   </Target>
 </Project>

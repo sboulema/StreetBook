@@ -17,7 +17,7 @@ public class CacheController : Controller
         _outputCacheStore = outputCacheStore;
     }
 
-    [HttpGet]
+    [HttpGet("[action]")]
     public async Task<IActionResult> Clear()
     {
         await _outputCacheStore.EvictByTagAsync("streetbook", default);
