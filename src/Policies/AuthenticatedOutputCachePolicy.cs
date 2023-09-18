@@ -24,14 +24,7 @@ public sealed class AuthenticatedOutputCachePolicy : IOutputCachePolicy
         // Vary by any query by default
         context.CacheVaryByRules.QueryKeys = "*";
 
-        var userId = context.HttpContext.Request.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (!string.IsNullOrEmpty(userId))
-        {
-            context.CacheVaryByRules.CacheKeyPrefix = userId;
-
-            context.Tags.Add(userId);
-        }
+        context.Tags.Add("streetbook");
 
         return ValueTask.CompletedTask;
     }
