@@ -7,4 +7,6 @@ public class PersonViewModel
     public string PictureURL { get; set; } = string.Empty;
 
     public int HouseNumber { get; set; }
+
+    public string MobilePhoneNumber { get; set; } = string.Empty;
 }

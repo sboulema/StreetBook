@@ -13,7 +13,7 @@
         <tr>
             <th scope="col">Huisnummer</th>
             <th scope="col">Foto</th>
-            <th scope="col">Naam</th>
+            <th scope="col">Info</th>
         </tr>
     </thead>
     <tbody>
@@ -22,12 +22,15 @@
             <tr>
                 <td>@person.HouseNumber</td>
                 <td>@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")</td>
-                @* <td>
-                    <a href="@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")" class="profile-pic">
-                        <img src="@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")" class="img-thumbnail" width="100" />
-                    </a>
-                </td> *@
-                <td>@person.Name</td>
+                <td>
+                    @person.Name
+                    @if (!string.IsNullOrEmpty(person.MobilePhoneNumber))
+                    {
+                        <br/>
+                        <a href="tel:@person.MobilePhoneNumber">@person.MobilePhoneNumber</a>
+                        <a href="https://wa.me/@person.MobilePhoneNumber"><i class="fa-brands fa-whatsapp"></i></a>
+                    }
+                </td>
             </tr>
         }
     </tbody>
@@ -66,7 +69,7 @@
 
 	                return link;
                 }, },
-                { title:"Naam", field:"name", headerFilter:"input" },
+                { title:"Info", field:"info", formatter:"html", headerFilter:"input" },
             ],
             groupBy:"houseNumber",
             groupHeader:function(value, count, data, group){
