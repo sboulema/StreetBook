@@ -23,7 +23,7 @@
                 <td>@person.HouseNumber</td>
                 <td>@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")</td>
                 <td>
-                    @person.Name
+                    <strong>@person.Name</strong>
                     @if (!string.IsNullOrEmpty(person.MobilePhoneNumber))
                     {
                         <br/>
