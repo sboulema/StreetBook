@@ -11,7 +11,7 @@
 <table id="streetBookTable">
     <thead>
         <tr>
-            <th scope="col">Huisnummer</th>
+            <th scope="col">Nr.</th>
             <th scope="col">Foto</th>
             <th scope="col">Info</th>
         </tr>
@@ -52,7 +52,7 @@
             layout:"fitDataStretch",
             height:"100%",
             columns:[
-                { title:"Huisnummer", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true} },
+                { title:"Nr.", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true} },
                 { title:"Foto", field:"photo", headerSort:false, formatter:function(cell, formatterParams, onRendered) {                    
                     var image = document.createElement("img");
                     image.setAttribute("src", cell.getValue());
