@@ -1,0 +1,54 @@
+﻿@using System.Text.Json;
+
+@model StreetBook.Models.ViewModels.StreetBookViewModel
+
+@{
+    ViewData["Title"] = "StreetBook";
+}
+
+@await Html.PartialAsync("_Notification")
+
+<table id="streetBookTable">
+    <thead>
+        <tr>
+            <th scope="col">Huisnummer</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Naam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model.Persons)
+        {
+            <tr>
+                <td>@person.HouseNumber</td>
+                <td>@($"/picture/{person.HouseNumber}_{person.Name.ToLower()}")</td>
+                <td>@person.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Stylesheets
+{
+    <link href="/css/tabulator_bootstrap5.min.css" rel="stylesheet">
+}
+
+@section Scripts
+{
+    <script src="/js/tabulator.min.js"></script>
+    <script>
+        var table = new Tabulator("#streetBookTable", {
+            layout:"fitDataStretch",
+            height:"100%",
+            columns:[
+                {title:"Huisnummer", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}},
+                {title:"Foto", field:"photo", formatter:"image", formatterParams:{ width:"100px" }},
+                {title:"Naam", field:"name", headerFilter:"input"},
+            ],
+            groupBy:"houseNumber",
+            groupHeader:function(value, count, data, group){
+                return `Huisnummer ${value}`;
+            },
+        });
+    </script>
+}

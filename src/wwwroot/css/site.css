@@ -1,0 +1,35 @@
+﻿.bt-purple-title {
+    color: #bd4d85;
+}
+
+.bt-purple-background {
+    background-color: #cb719d;
+}
+
+.bt-green-title {
+    color: #a4c94c;
+}
+
+.bt-green-background {
+    background-color: #f5fae8;
+}
+
+.bt-dark-green-title {
+    color: #469e6b;
+}
+
+.bt-blue-title {
+    color: #3d7aba;
+}
+
+.bt-blue-background {
+    background-color: #ebf2fa;
+}
+
+.bt-orange-title {
+    color: #f36630;
+}
+
+caption {
+    display: none;
+}

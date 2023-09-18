@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreetBook</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/site.css">
+
+    @RenderSection("Stylesheets", required: false)
+
+    <script src="/js/jquery.min.js"></script>
+
+    @RenderSection("HeaderScripts", required: false)
+</head>
+<body>
+    <header>
+        @await Html.PartialAsync("_NavBar")
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    &copy; 2023 : StreetBook
+                </div>         
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/63a5893d45.js" crossorigin="anonymous"></script>
+
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+﻿@if (TempData.ContainsKey("notificationMessage") && TempData.ContainsKey("notificationType"))
+{
+    <div class='alert alert-@TempData["notificationType"] alert-dismissible' role="alert">
+        @Html.Raw(TempData["notificationMessage"])
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}

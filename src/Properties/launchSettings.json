@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "BabyTracker": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:5001"
+      }
+    }
+  }
+}

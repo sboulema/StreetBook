@@ -1,0 +1,12 @@
+/.vs
+/src/*.user
+/src/.vs
+/src/bin
+/src/obj
+/src/data
+/.vscode
+/src/appsettings.development.json
+/src/node_modules
+/src/wwwroot/js
+/src/wwwroot/css/bootstrap.min.css
+/src/wwwroot/css/tabulator_bootstrap5.min.css
