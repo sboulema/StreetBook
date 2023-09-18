@@ -27,8 +27,9 @@
                     @if (!string.IsNullOrEmpty(person.MobilePhoneNumber))
                     {
                         <br/>
-                        <a href="tel:@person.MobilePhoneNumber">@person.MobilePhoneNumber</a>
-                        <a href="https://wa.me/@person.MobilePhoneNumber"><i class="fa-brands fa-whatsapp"></i></a>
+                        @person.MobilePhoneNumber<br/>
+                        <a href="tel:@person.MobilePhoneNumber" class="btn btn-outline-primary mt-2"><i class="fa-solid fa-phone"></i></a>
+                        <a href="https://wa.me/@person.MobilePhoneNumber" class="btn btn-outline-success mt-2"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
                     }
                 </td>
             </tr>
