@@ -22,6 +22,6 @@ public class CacheController : Controller
     {
         await _outputCacheStore.EvictByTagAsync("streetbook", default);
 
-        return Ok();
+        return RedirectToAction("Index", "Home");
     }
 }
