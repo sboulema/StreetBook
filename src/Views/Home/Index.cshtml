@@ -53,8 +53,8 @@
             layout:"fitDataStretch",
             height:"100%",
             columns:[
-                { title:"Nr.", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true} },
-                { title:"Foto", field:"photo", headerSort:false, formatter:function(cell, formatterParams, onRendered) {                    
+                { title:"Nr.", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, resizable:false },
+                { title:"Foto", field:"photo", headerSort:false, resizable:false, formatter:function(cell, formatterParams, onRendered) {                    
                     var image = document.createElement("img");
                     image.setAttribute("src", cell.getValue());
                     image.setAttribute("class", "img-thumbnail");
@@ -70,7 +70,7 @@
 
 	                return link;
                 }, },
-                { title:"Info", field:"info", formatter:"html", headerFilter:"input" },
+                { title:"Info", field:"info", formatter:"html", headerFilter:"input", resizable:false },
             ],
             groupBy:"houseNumber",
             groupHeader:function(value, count, data, group){

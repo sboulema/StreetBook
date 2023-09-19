@@ -26,7 +26,9 @@ public class AccountService : IAccountService
             return null;
         }
         
-        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+        var identity = new ClaimsIdentity(
+            new[] { new Claim(ClaimTypes.Name, "Bewoner") },
+            CookieAuthenticationDefaults.AuthenticationScheme);
 
         var claimsPrincipal = new ClaimsPrincipal(identity);
 
