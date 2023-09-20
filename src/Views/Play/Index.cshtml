@@ -1,0 +1,161 @@
+﻿@using System.Text.Json;
+
+@model StreetBook.Models.ViewModels.StreetBookViewModel
+
+@{
+    ViewData["Title"] = "StreetBook";
+}
+
+@await Html.PartialAsync("_Notification")
+
+<div class="row">
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" id="profile-pic">
+            <div class="card-body">
+                <h5 class="card-title" id="score">Punten: 0</h5>
+
+                <div class="progress" role="progressbar">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+
+                <p class="card-text bg-success-subtle rounded p-3 mt-3 d-none" id="answer"></p>
+
+                <div class="mb-3">
+                    <label for="firstName-input" class="form-label">Voornaam</label>
+                    <input type="text" class="form-control" id="firstName-input">
+                </div>
+
+                <div class="mb-3">
+                    <label for="houseNumber-input" class="form-label">Huisnummer</label>
+                    <input type="number" class="form-control" id="houseNumber-input">
+                </div>
+
+                <div class="mb-3 d-none" id="playerName-wrapper">
+                    <label for="playerName-input" class="form-label">Spelernaam</label>
+                    <input type="text" class="form-control" id="playerName-input">
+                </div>
+
+                <button class="btn btn-primary float-end" id="submit-btn">
+                    <i class="fa-regular fa-circle-question" id="submit-btn-icon"></i>
+                    <span id="submit-btn-text">Beantwoorden</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <table class="table">
+             <thead>
+                <tr>
+                    <th>Score</th>
+                    <th>Naam</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var score in Model.Highscores)
+                {
+                    <tr>
+                        <td>@score.Value</td>
+                        <td>@score.Key</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Stylesheets
+{
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
+}
+
+@section Scripts
+{
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+
+    <script>
+        var index = 0;
+        var score = 0;
+        var turns = @Html.Raw(JsonSerializer.Serialize(Model.Persons));
+
+        $(document).ready(function() {
+            $("#profile-pic").attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);
+
+            $('#submit-btn').on({
+                'click': function() {
+                    if ($('#submit-btn-text').text() == "Beantwoorden")
+                    {
+                        if ($("#firstName-input").val()
+                            .localeCompare(turns[index].FirstName, "nl", { sensitivity: 'base' }) == 0) {
+                            $("#firstName-input").addClass("is-valid")
+                            score++;
+                        }
+                        else {
+                            $("#firstName-input").addClass("is-invalid")
+                        }
+
+                        if ($("#houseNumber-input").val() == turns[index].HouseNumber) {
+                            $("#houseNumber-input").addClass("is-valid")
+                            score++;
+                        }
+                        else {
+                            $("#houseNumber-input").addClass("is-invalid")
+                        }
+
+                        $("#score").text(`Punten: ${score}`);
+
+                        $("#answer").html(`Voornaam: ${turns[index].FirstName}<br/>Huisnummer: ${turns[index].HouseNumber}`);
+                        $("#answer").removeClass("d-none");
+
+                        $("#progress-bar").css("width", `${((index + 1) / turns.length) * 100}%`);
+
+                        if (index == turns.length - 1) {
+                            $("#playerName-wrapper").removeClass("d-none");
+                            $('#submit-btn-text').text("Score opslaan");
+                            $('#submit-btn-icon')
+                                .removeClass("fa-arrow-right")
+                                .addClass("fa-floppy-disk");
+                        }
+                        else {
+                            $('#submit-btn-text').text("Volgende");
+                            $('#submit-btn-icon')
+                                .removeClass("fa-circle-question")
+                                .addClass("fa-arrow-right");
+                        }
+                    }
+                    else if ($('#submit-btn-text').text() == "Volgende") {
+                        $("#answer").empty();
+                        $("#answer").addClass("d-none");
+
+                        index++;
+
+                        $("#firstName-input")
+                            .val("")
+                            .removeClass("is-valid")
+                            .removeClass("is-invalid");
+                        $("#houseNumber-input")
+                            .val("")
+                            .removeClass("is-valid")
+                            .removeClass("is-invalid");
+                        
+                        $("#profile-pic").attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);
+
+                        $('#submit-btn-text').text("Beantwoorden");
+                        $('#submit-btn-icon')
+                            .removeClass("fa-arrow-right")
+                            .addClass("fa-circle-question");
+                    }
+                    else if ($('#submit-btn-text').text() == "Score opslaan") {
+                        $.post("/play/highscores", { name: `${$("#playerName-input").val()}`, score: score }, function( data ) {
+                            location.reload();
+                        });
+                    }
+                }
+            });
+
+            $('#profile-pic').magnificPopup({
+                type: 'image'
+            });
+        }); 
+    </script>
+}

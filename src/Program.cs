@@ -20,6 +20,7 @@ builder.Services
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IStreetBookService, StreetBookService>();
 builder.Services.AddScoped<IPictureService, PictureService>();
+builder.Services.AddScoped<IPlayService, PlayService>();
 
 var app = builder.Build();
 
