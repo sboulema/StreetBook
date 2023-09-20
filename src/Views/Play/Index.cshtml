@@ -29,7 +29,7 @@
             <div class="card-body">
                 <h5 class="card-title" id="score">Punten: 0</h5>
 
-                <div class="progress" role="progressbar">
+                <div class="progress mb-3" role="progressbar">
                     <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
                 </div>
 
@@ -100,7 +100,8 @@
                 'click': function() {
                     if ($('#submit-btn-text').text() == "Beantwoorden")
                     {
-                        if ($("#firstName-input").val()
+                        // Check if first name matches
+                        if ($("#firstName-input").val().trim()
                             .localeCompare(turns[index].FirstName, "nl", { sensitivity: 'base' }) == 0) {
                             $("#firstName-input").addClass("is-valid")
                             score++;
@@ -109,6 +110,7 @@
                             $("#firstName-input").addClass("is-invalid")
                         }
 
+                        // Check if house number matches
                         if ($("#houseNumber-input").val() == turns[index].HouseNumber) {
                             $("#houseNumber-input").addClass("is-valid")
                             score++;

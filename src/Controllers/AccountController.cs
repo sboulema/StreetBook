@@ -20,7 +20,12 @@ public class AccountController : Controller
     }
 
     [HttpGet("[action]")]
-    public IActionResult Login() => View(new LoginViewModel());
+    public IActionResult Login(string returnUrl = "")
+    {
+        ViewBag.ReturnUrl = returnUrl;
+
+        return View(new LoginViewModel());
+    }
 
     [HttpPost("[action]")]
     public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = "")
