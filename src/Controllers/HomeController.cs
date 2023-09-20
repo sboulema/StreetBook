@@ -22,6 +22,8 @@ public class HomeController : Controller
     {
         var viewModel = _streetBookService.GetStreetBook();
 
+        ViewBag.GutterWidth = 0;
+
         return View(viewModel);
     }
 }
