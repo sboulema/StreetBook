@@ -8,12 +8,23 @@
 
 @await Html.PartialAsync("_Notification")
 
+<div class="row g-3 mx-1 mb-3">
+  <div class="col-3">
+    <label for="exampleFormControlInput1" class="form-label"><strong>Nr.</strong></label>
+    <input id="houseNumberInput" type="number" class="form-control">
+  </div>
+  <div class="col-9">
+    <label for="exampleFormControlInput1" class="form-label"><strong>Info</strong></label>
+    <input id="infoInput" type="text" class="form-control">
+  </div>
+</div>
+
 <table id="streetBookTable">
     <thead>
         <tr>
-            <th scope="col">Nr.</th>
-            <th scope="col">Foto</th>
-            <th scope="col">Info</th>
+            <th>Nr.</th>
+            <th>Foto</th>
+            <th>Info</th>
         </tr>
     </thead>
     <tbody>
@@ -50,11 +61,12 @@
 
     <script>
         var table = new Tabulator("#streetBookTable", {
+            headerVisible:false,
             layout:"fitDataStretch",
             height:"100%",
             columns:[
-                { title:"Nr.", field:"houseNumber", headerFilter:"list", headerFilterParams:{valuesLookup:true, clearable:true}, resizable:false },
-                { title:"Foto", field:"photo", headerSort:false, resizable:false, formatter:function(cell, formatterParams, onRendered) {                    
+                { title:"Nr.", field:"houseNumber", resizable:false },
+                { title:"Foto", field:"photo", resizable:false, formatter:function(cell, formatterParams, onRendered) {                    
                     var image = document.createElement("img");
                     image.setAttribute("src", cell.getValue());
                     image.setAttribute("class", "img-thumbnail");
@@ -70,7 +82,7 @@
 
 	                return link;
                 }, },
-                { title:"Info", field:"info", formatter:"html", headerFilter:"input", resizable:false },
+                { title:"Info", field:"info", formatter:"html", resizable:false },
             ],
             groupBy:"houseNumber",
             groupHeader:function(value, count, data, group){
@@ -82,6 +94,29 @@
             $('.profile-pic').magnificPopup({
                 type: 'image'
             });
-        }); 
+
+            document.getElementById("houseNumberInput").addEventListener("input", (event) => {
+                removeFilter("houseNumber");
+                if (event.target.value !== '') {
+                    table.addFilter("houseNumber", "=", event.target.value);
+                }
+            });
+            document.getElementById("infoInput").addEventListener("input", (event) => {
+                removeFilter("info");
+                if (event.target.value !== '') {
+                    table.addFilter("info", "like", event.target.value);
+                }
+            });
+        });
+
+        function removeFilter(field) {
+            var filter = table.getFilters().find((filter) => filter.field === field);
+
+            if (filter === undefined) {
+                return;
+            }
+
+            table.removeFilter(filter.field, filter.type, filter.value);
+        }
     </script>
 }
