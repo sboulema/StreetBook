@@ -62,11 +62,12 @@
     <script>
         var table = new Tabulator("#streetBookTable", {
             headerVisible:false,
-            layout:"fitDataStretch",
+            responsiveLayout:"hide",
+            layout:"fitDataFill",
             height:"100%",
             columns:[
                 { title:"Nr.", field:"houseNumber", resizable:false },
-                { title:"Foto", field:"photo", resizable:false, formatter:function(cell, formatterParams, onRendered) {                    
+                { title:"Foto", field:"photo", resizable:false, responsive:0, formatter:function(cell, formatterParams, onRendered) {                    
                     var image = document.createElement("img");
                     image.setAttribute("src", cell.getValue());
                     image.setAttribute("class", "img-thumbnail");
@@ -82,7 +83,7 @@
 
 	                return link;
                 }, },
-                { title:"Info", field:"info", formatter:"html", resizable:false },
+                { title:"Info", field:"info", formatter:"html", resizable:false, responsive:0 },
             ],
             groupBy:"houseNumber",
             groupHeader:function(value, count, data, group){
