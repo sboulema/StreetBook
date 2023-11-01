@@ -19,7 +19,7 @@
     <header>
         @await Html.PartialAsync("_NavBar")
     </header>
-    <div class="container gx-0">
+    <div class="container gx-@(ViewBag.GutterWidth ?? 3)">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-auto">
                     &copy; 2023 : StreetBook
-                </div>         
+                </div>
             </div>
         </div>
     </footer>
