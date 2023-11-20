@@ -1,10 +1,9 @@
 /.vs
+/.vscode
+/artifacts
 /src/*.user
 /src/.vs
-/src/bin
-/src/obj
 /src/data
-/.vscode
 /src/appsettings.development.json
 /src/node_modules
 /src/wwwroot/js
