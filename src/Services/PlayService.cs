@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 
@@ -14,19 +15,16 @@ public interface IPlayService
     Task AddHighScore(string name, int score);
 }
 
-public class PlayService : IPlayService
+public class PlayService(IHostEnvironment hostEnvironment) : IPlayService
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private readonly string _basePath;
+    private readonly string _basePath = hostEnvironment.IsProduction()
+        ? "/data/Data" : $"{hostEnvironment.ContentRootPath}/Data";
 
-    public PlayService(IHostEnvironment hostEnvironment)
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
-        _jsonSerializerOptions = new()
-        {
-            PropertyNameCaseInsensitive = true
-        };
-        _basePath = hostEnvironment.IsProduction() ? "/data/Data" : $"{hostEnvironment.ContentRootPath}/Data";
-    }
+        PropertyNameCaseInsensitive = true,
+        TypeInfoResolver = HighScoreContext.Default
+    };
 
     public async Task<Dictionary<string, int>> GetHighScores()
     {
@@ -57,3 +55,6 @@ public class PlayService : IPlayService
         await File.WriteAllTextAsync(path, json);
     }
 }
+
+[JsonSerializable(typeof(Dictionary<string, int>))]
+public partial class HighScoreContext : JsonSerializerContext { }
