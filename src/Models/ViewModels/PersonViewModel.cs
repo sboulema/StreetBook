@@ -1,4 +1,6 @@
-﻿namespace StreetBook.Models.ViewModels;
+﻿using System.Text.Json.Serialization;
+
+namespace StreetBook.Models.ViewModels;
 
 public class PersonViewModel
 {
@@ -14,3 +16,6 @@ public class PersonViewModel
 
     public string Name => $"{FirstName}{(!string.IsNullOrEmpty(LastName) ? $" {LastName}" : string.Empty)}";
 }
+
+[JsonSerializable(typeof(PersonViewModel))]
+public partial class PersonViewModelContext : JsonSerializerContext { }

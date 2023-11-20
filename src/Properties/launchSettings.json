@@ -1,13 +1,22 @@
-﻿{
+{
   "profiles": {
-    "BabyTracker": {
-      "commandName": "Project",
+    "WSL": {
+      "commandName": "WSL2",
       "launchBrowser": true,
-      "applicationUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "https://localhost:5001"
-      }
+      },
+      "distributionName": ""
+    },
+    "StreetBook": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:5001"
+      },
+      "applicationUrl": ""
     }
   }
 }

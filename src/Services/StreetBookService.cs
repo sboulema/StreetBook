@@ -11,25 +11,21 @@ public interface IStreetBookService
     StreetBookViewModel GetStreetBook();
 }
 
-public class StreetBookService : IStreetBookService
+public class StreetBookService(IHostEnvironment hostEnvironment) : IStreetBookService
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private readonly string _basePath;
-
-    public StreetBookService(IHostEnvironment hostEnvironment)
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
-        _jsonSerializerOptions = new()
-        {
-            PropertyNameCaseInsensitive = true
-        };
-        _basePath = hostEnvironment.IsProduction() ? "/data/Data" : $"{hostEnvironment.ContentRootPath}/Data";
-    }
+        PropertyNameCaseInsensitive = true,
+        TypeInfoResolver = PersonViewModelContext.Default
+    };
 
     public StreetBookViewModel GetStreetBook()
     {
-        var peopleFilePath = Path.Combine(_basePath, "people.json");
+        var basePath = hostEnvironment.IsProduction() ? "/data/Data" : $"{hostEnvironment.ContentRootPath}/Data";
+        var peopleFilePath = Path.Combine(basePath, "people.json");
+
         var json = File.ReadAllText(peopleFilePath);
-        var people = JsonSerializer.Deserialize<List<PersonViewModel>>(json, _jsonSerializerOptions) ?? new();
+        var people = JsonSerializer.Deserialize<List<PersonViewModel>>(json, _jsonSerializerOptions) ?? [];
 
         return new()
         {
