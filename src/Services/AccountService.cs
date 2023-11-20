@@ -10,18 +10,11 @@ public interface IAccountService
     ClaimsPrincipal? Login(LoginViewModel model);
 }
 
-public class AccountService : IAccountService
+public class AccountService(IConfiguration configuration) : IAccountService
 {
-    private readonly string? _password;
-
-    public AccountService(IConfiguration configuration)
-    {
-        _password = configuration["PASSWORD"];
-    }
-
     public ClaimsPrincipal? Login(LoginViewModel model)
     {
-        if (model.Password != _password)
+        if (model.Password != configuration["PASSWORD"])
         {
             return null;
         }

@@ -8,24 +8,15 @@ using StreetBook.Services;
 namespace BabyTracker.Controllers;
 
 [Route("[controller]")]
-public class PictureController : Controller
+public class PictureController(IPictureService pictureService,
+    IHostEnvironment hostEnvironment) : Controller
 {
-    private readonly IPictureService _pictureService;
-    private readonly IHostEnvironment _hostEnvironment;
-
-    public PictureController(IPictureService pictureService,
-        IHostEnvironment hostEnvironment)
-    {
-        _pictureService = pictureService;
-        _hostEnvironment = hostEnvironment;
-    }
-
     [OutputCache(PolicyName = "AuthenticatedOutputCache")]
     [Authorize]
     [HttpGet("{fileName}")]
     public async Task<IActionResult> GetPicture(string fileName)
     {
-        var picture = await _pictureService.GetPicture(_hostEnvironment, fileName);
+        var picture = await pictureService.GetPicture(hostEnvironment, fileName);
 
         if (picture == null)
         {

@@ -6,21 +6,14 @@ using Microsoft.AspNetCore.OutputCaching;
 namespace BabyTracker.Controllers;
 
 [Route("")]
-public class HomeController : Controller
+public class HomeController(IStreetBookService streetBookService) : Controller
 {
-    private readonly IStreetBookService _streetBookService;
-
-    public HomeController(IStreetBookService streetBookService)
-    {
-        _streetBookService = streetBookService;
-    }
-
     [OutputCache(PolicyName = "AuthenticatedOutputCache")]
     [HttpGet]
     [Authorize]
     public IActionResult Index()
     {
-        var viewModel = _streetBookService.GetStreetBook();
+        var viewModel = streetBookService.GetStreetBook();
 
         ViewBag.GutterWidth = 0;
 

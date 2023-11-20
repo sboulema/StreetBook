@@ -9,9 +9,9 @@ namespace StreetBook.Services;
 
 public interface IPlayService
 {
-    Task<Dictionary<string, int>> GetHighscores();
+    Task<Dictionary<string, int>> GetHighScores();
 
-    Task AddHighscore(string name, int score);
+    Task AddHighScore(string name, int score);
 }
 
 public class PlayService : IPlayService
@@ -28,27 +28,27 @@ public class PlayService : IPlayService
         _basePath = hostEnvironment.IsProduction() ? "/data/Data" : $"{hostEnvironment.ContentRootPath}/Data";
     }
 
-    public async Task<Dictionary<string, int>> GetHighscores()
+    public async Task<Dictionary<string, int>> GetHighScores()
     {
         var path = Path.Combine(_basePath, "highscores.json");
 
         if (!File.Exists(path))
         {
             await File.WriteAllTextAsync(path, JsonSerializer.Serialize(new Dictionary<string, int>()));
-            return new();
+            return [];
         }
 
         var json = await File.ReadAllTextAsync(path);
-        var scores = JsonSerializer.Deserialize<Dictionary<string, int>>(json, _jsonSerializerOptions) ?? new();
+        var scores = JsonSerializer.Deserialize<Dictionary<string, int>>(json, _jsonSerializerOptions) ?? [];
 
         return scores
             .OrderByDescending(score => score.Value)
             .ToDictionary(score => score.Key, score => score.Value);
     }
 
-    public async Task AddHighscore(string name, int score)
+    public async Task AddHighScore(string name, int score)
     {
-        var scores = await GetHighscores();
+        var scores = await GetHighScores();
 
         scores.Add(name, score);
 

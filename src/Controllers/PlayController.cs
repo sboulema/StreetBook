@@ -8,24 +8,15 @@ using System.Threading.Tasks;
 namespace BabyTracker.Controllers;
 
 [Route("[controller]")]
-public class PlayController : Controller
+public class PlayController(
+    IStreetBookService streetBookService,
+    IPlayService playService) : Controller
 {
-    private readonly IStreetBookService _streetBookService;
-    private readonly IPlayService _playService;
-
-    public PlayController(
-        IStreetBookService streetBookService,
-        IPlayService playService)
-    {
-        _streetBookService = streetBookService;
-        _playService = playService;
-    }
-
     [HttpGet]
     [Authorize]
     public async Task<IActionResult> Index()
     {
-        var viewModel = _streetBookService.GetStreetBook();
+        var viewModel = streetBookService.GetStreetBook();
 
         viewModel.Persons = viewModel.Persons
             .Where(person => person.HasPicture && person.FirstName != "-")
@@ -33,25 +24,25 @@ public class PlayController : Controller
             .Take(5)
             .ToList();
 
-        viewModel.Highscores = await _playService.GetHighscores();
+        viewModel.Highscores = await playService.GetHighScores();
 
         return View(viewModel);
     }
 
     [HttpPost("[action]")]
     [Authorize]
-    public async Task<IActionResult> Highscores(string name, int score)
+    public async Task<IActionResult> HighScores(string name, int score)
     {
-        await _playService.AddHighscore(name, score);
+        await playService.AddHighScore(name, score);
 
         return Ok();
     }
 
     [HttpGet("[action]")]
     [Authorize]
-    public async Task<IActionResult> Highscores()
+    public async Task<IActionResult> HighScores()
     {
-        var scores = await _playService.GetHighscores();
+        var scores = await playService.GetHighScores();
 
         return Ok(scores);
     }

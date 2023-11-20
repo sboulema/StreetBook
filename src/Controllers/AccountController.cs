@@ -10,15 +10,8 @@ using StreetBook.Models.ViewModels;
 namespace StreetBook.Controllers;
 
 [Route("[controller]")]
-public class AccountController : Controller
+public class AccountController(IAccountService accountService) : Controller
 {
-    private readonly IAccountService _accountService;
-
-    public AccountController(IAccountService accountService)
-    {
-        _accountService = accountService;
-    }
-
     [HttpGet("[action]")]
     public IActionResult Login(string returnUrl = "")
     {
@@ -30,7 +23,7 @@ public class AccountController : Controller
     [HttpPost("[action]")]
     public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = "")
     {
-        var claimsPrincipal = _accountService.Login(model);
+        var claimsPrincipal = accountService.Login(model);
 
         if (claimsPrincipal == null)
         {
