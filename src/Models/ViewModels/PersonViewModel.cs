@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace StreetBook.Models.ViewModels;
 
@@ -18,4 +19,5 @@ public class PersonViewModel
 }
 
 [JsonSerializable(typeof(PersonViewModel))]
+[JsonSerializable(typeof(List<PersonViewModel>))]
 public partial class PersonViewModelContext : JsonSerializerContext { }
