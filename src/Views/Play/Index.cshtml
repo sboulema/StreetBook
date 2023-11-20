@@ -67,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var score in Model.Highscores)
+                @foreach (var score in Model.HighScores)
                 {
                     <tr>
                         <td>@score.Value</td>
@@ -91,7 +91,7 @@
     <script>
         var index = 0;
         var score = 0;
-        var turns = @Html.Raw(JsonSerializer.Serialize(Model.Persons));
+        var turns = @Html.Raw(Model.PersonsJson);
 
         $(document).ready(function() {
             $("#profile-pic").attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);

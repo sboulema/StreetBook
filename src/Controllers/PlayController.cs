@@ -24,7 +24,7 @@ public class PlayController(
             .Take(5)
             .ToList();
 
-        viewModel.Highscores = await playService.GetHighScores();
+        viewModel.HighScores = await playService.GetHighScores();
 
         return View(viewModel);
     }

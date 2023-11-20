@@ -4,6 +4,9 @@
     <Nullable>enable</Nullable>
     <UserSecretsId>cdd039dd-6e1f-42ee-95de-d149916af726</UserSecretsId>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="IdentityModel.AspNetCore" Version="4.3.0" />
@@ -11,11 +14,12 @@
   </ItemGroup>
 
   <Target Name="CopyJS" BeforeTargets="BeforeBuild">
-	<Message Text="Running NPM install" />  
-	<Exec Command="npm install" /> 
-	<Message Text="Copying JS files" />
-	<Copy SourceFiles="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" DestinationFolder="wwwroot/js" />
-	<Copy SourceFiles="node_modules/jquery/dist/jquery.min.js" DestinationFolder="wwwroot/js" />
+	  <Message Text="Running NPM install" />  
+	  <Exec Command="npm install" /> 
+	  
+    <Message Text="Copying JS files" />
+	  <Copy SourceFiles="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" DestinationFolder="wwwroot/js" />
+	  <Copy SourceFiles="node_modules/jquery/dist/jquery.min.js" DestinationFolder="wwwroot/js" />
     <Copy SourceFiles="node_modules/tabulator-tables/dist/js/tabulator.min.js" DestinationFolder="wwwroot/js" />
     <Copy SourceFiles="node_modules/magnific-popup/dist/jquery.magnific-popup.min.js" DestinationFolder="wwwroot/js" />
 
