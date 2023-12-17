@@ -25,6 +25,7 @@
             <th>Nr.</th>
             <th>Foto</th>
             <th>Info</th>
+            <th>IsDisabled</th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +44,7 @@
                         <a href="https://wa.me/@person.MobilePhoneNumber" class="btn btn-outline-success mt-2"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
                     }
                 </td>
+                <td>@person.IsDisabled</td>
             </tr>
         }
     </tbody>
@@ -84,10 +86,14 @@
 	                return link;
                 }, },
                 { title:"Info", field:"info", formatter:"html", resizable:false, responsive:0 },
+                { title:"IsDisabled", field:"isDisabled", visible:false },
             ],
             groupBy:"houseNumber",
             groupHeader:function(value, count, data, group){
                 return `Huisnummer ${value}`;
+            },
+            rowFormatter:function(row){
+                row.getElement().style.opacity = row.getData().isDisabled == "True" ? 0.3 : 1;
             },
         });
 
