@@ -5,7 +5,7 @@
   "dependencies": {
     "bootstrap": "5.3.2",
     "jquery": "3.7.1",
-    "tabulator-tables": "5.5.3",
+    "tabulator-tables": "5.5.4",
     "magnific-popup": "1.1.0"
   }
 }
