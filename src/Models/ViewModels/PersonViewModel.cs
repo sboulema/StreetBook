@@ -18,6 +18,12 @@ public class PersonViewModel
 	public string Name => $"{FirstName}{(!string.IsNullOrEmpty(LastName) ? $" {LastName}" : string.Empty)}";
 	
 	public bool IsDisabled { get; set; }
+	
+	public bool IsHidden { get; set; }
+	
+	public string Status { get; set; } = string.Empty;
+	
+	public List<string> LicensePlates { get; set; } = [];
 }
 
 [JsonSerializable(typeof(PersonViewModel))]

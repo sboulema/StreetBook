@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Hosting;
 using StreetBook.Models.ViewModels;
@@ -29,7 +30,7 @@ public class StreetBookService(IHostEnvironment hostEnvironment) : IStreetBookSe
 
         return new()
         {
-            Persons = people
+            Persons = people.Where(people => !people.IsHidden).ToList(),
         };
     }
 }
