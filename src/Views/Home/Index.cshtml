@@ -38,10 +38,26 @@
                     <strong>@person.Name</strong>
                     @if (!string.IsNullOrEmpty(person.MobilePhoneNumber))
                     {
-                        <br/>
-                        @person.MobilePhoneNumber<br/>
-                        <a href="tel:@person.MobilePhoneNumber" class="btn btn-outline-primary mt-2"><i class="fa-solid fa-phone"></i></a>
-                        <a href="https://wa.me/@person.MobilePhoneNumber" class="btn btn-outline-success mt-2"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
+                        <div>
+                            @if (@person.LicensePlates.Any()) {
+                                <i class="fa-thin fa-fw fa-phone"></i>
+                            }
+                            @person.MobilePhoneNumber
+                        </div>
+                    }
+                    @if (@person.LicensePlates.Any())
+                    {
+                        <div>
+                            <i class="fa-thin fa-fw fa-car-side"></i>
+                            @string.Join(", ", person.LicensePlates)
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(person.MobilePhoneNumber))
+                    {
+                        <div class="mt-3">
+                            <a href="tel:@person.MobilePhoneNumber" class="btn btn-outline-primary"><i class="fa-solid fa-phone"></i></a>
+                            <a href="https://wa.me/@person.MobilePhoneNumber" class="btn btn-outline-success"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
+                        </div>
                     }
                 </td>
                 <td>@person.IsDisabled</td>
