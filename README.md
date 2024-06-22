@@ -6,10 +6,11 @@ A website to gather and show information about all neighbours living in a single
 TODO
 
 ## Data model
+All data is loaded from a `people.json` file stored in the designated volume mount.
 
-### Person
 ```
-{
+[
+  {
     "firstName": "Samir",
     "lastName": "Boulema",
     "houseNumber": 34,
@@ -19,8 +20,14 @@ TODO
     "hasPicture": true,
     "isDisabled": false,
     "isHidden": false
-}
+  },
+  {
+    ...
+  }
+]
 ```
+
+### Person
 
 | Name              | Required | Description |
 | ----------------- | -------- | ----------- |
@@ -47,6 +54,9 @@ TODO
 | Path on container | Description                                    |
 | ----------------- | ---------------------------------------------- |
 | /data             | people.json and images are read from this path |
+
+## Caching
+Data loaded will be cached in memory, if changes are made you can clear the cache by navigating to `<host>/cache/clear`
 
 ## Building
 
