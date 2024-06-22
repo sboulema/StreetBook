@@ -9,7 +9,7 @@ A website to gather and show information about all neighbours living in a single
 TODO
 
 ## Running
-TODO
+`docker run -p 80:80 -e Password=SECRET sboulema/streetbook`
 
 ## Data model
 All data is loaded from a `people.json` file stored in the designated volume mount.
@@ -53,7 +53,11 @@ A person can have a personal image. The image is linked by the filename followin
 ```
 
 ## Play
-TODO
+Want to get to know your neighbours in a fun way? Play the StreetBook game.
+
+In 5 rounds you will need to guess the first name of a neighbour and which house number they live at. Each answer is worth a point, so try to reach the perfect highscore of 10 points!
+
+![Play](art/StreetBook-Play.png)
 
 ## Volumes / Bind mounts
 | Path on container | Description                                    |
