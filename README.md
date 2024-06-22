@@ -2,7 +2,13 @@
 
 A website to gather and show information about all neighbours living in a single street.
 
+[![StreetBook](https://github.com/sboulema/StreetBook/actions/workflows/workflow.yml/badge.svg)](https://github.com/sboulema/StreetBook/actions/workflows/workflow.yml)
+[![Sponsor](https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors)](https://github.com/sponsors/sboulema)
+
 ## Screenshots
+TODO
+
+## Running
 TODO
 
 ## Data model
@@ -28,7 +34,6 @@ All data is loaded from a `people.json` file stored in the designated volume mou
 ```
 
 ### Person
-
 | Name              | Required | Description |
 | ----------------- | -------- | ----------- |
 | firstName         | Yes      | First name of the person |
