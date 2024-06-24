@@ -7,6 +7,28 @@
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
+    <style>
+        .navbar .dropdown-menu .active i {
+            display: block !important;
+        }
+
+        .tabulator, .tabulator-table, .tabulator-group, .tabulator-row-odd {
+            background-color: transparent !important;
+        }
+
+        .tabulator-row-even {
+            background-color: var(--bs-tertiary-bg) !important;
+        }
+
+        .tabulator-row {
+            border-bottom: 1px solid var(--bs-border-color) !important;
+        }
+
+        .tabulator-group {
+            border: 1px solid var(--bs-border-color) !important;
+        }
+    </style>
+
     @RenderSection("Stylesheets", required: false)
 
     <script src="/js/jquery.min.js"></script>
