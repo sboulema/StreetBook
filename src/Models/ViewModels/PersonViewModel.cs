@@ -10,6 +10,8 @@ public class PersonViewModel
 	public string LastName { get; set; } = string.Empty;
 
 	public int HouseNumber { get; set; }
+	
+	public string HouseNumberSuffix { get; set; } = string.Empty;
 
 	public string MobilePhoneNumber { get; set; } = string.Empty;
 

@@ -10,11 +10,11 @@
 
 <div class="row g-3 mx-1 mb-3">
   <div class="col-3">
-    <label for="exampleFormControlInput1" class="form-label"><strong>Nr.</strong></label>
+    <label for="houseNumberInput" class="form-label"><strong>Nr.</strong></label>
     <input id="houseNumberInput" type="number" class="form-control">
   </div>
   <div class="col-9">
-    <label for="exampleFormControlInput1" class="form-label"><strong>Info</strong></label>
+    <label for="infoInput" class="form-label"><strong>Info</strong></label>
     <input id="infoInput" type="text" class="form-control">
   </div>
 </div>
@@ -32,7 +32,7 @@
         @foreach (var person in Model.Persons)
         {
             <tr>
-                <td>@person.HouseNumber</td>
+                <td>@person.HouseNumber@person.HouseNumberSuffix</td>
                 <td>@($"/picture/{person.HouseNumber}_{person.FirstName.ToLower()}")</td>
                 <td>
                     <strong>@person.Name</strong>
