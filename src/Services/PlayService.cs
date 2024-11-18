@@ -23,7 +23,6 @@ public class PlayService(IHostEnvironment hostEnvironment) : IPlayService
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true,
-        TypeInfoResolver = HighScoreContext.Default
     };
 
     public async Task<Dictionary<string, int>> GetHighScores()
@@ -55,6 +54,3 @@ public class PlayService(IHostEnvironment hostEnvironment) : IPlayService
         await File.WriteAllTextAsync(path, json);
     }
 }
-
-[JsonSerializable(typeof(Dictionary<string, int>))]
-public partial class HighScoreContext : JsonSerializerContext { }

@@ -18,7 +18,7 @@ public class AccountService(IConfiguration configuration) : IAccountService
         {
             return null;
         }
-        
+
         var identity = new ClaimsIdentity(
             new[] { new Claim(ClaimTypes.Name, "Bewoner") },
             CookieAuthenticationDefaults.AuthenticationScheme);

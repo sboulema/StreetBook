@@ -7,16 +7,16 @@
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="IdentityModel.AspNetCore" Version="4.3.0" />
     <PackageReference Include="Unidecode.NET" Version="2.1.0" />
   </ItemGroup>
 
   <Target Name="CopyJS" BeforeTargets="BeforeBuild">
-	  <Message Text="Running NPM install" />  
-	  <Exec Command="npm install" /> 
-	  
+	  <Message Text="Running NPM install" />
+	  <Exec Command="npm install" />
+
     <Message Text="Copying JS files" />
 	  <Copy SourceFiles="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" DestinationFolder="wwwroot/js" />
 	  <Copy SourceFiles="node_modules/jquery/dist/jquery.min.js" DestinationFolder="wwwroot/js" />

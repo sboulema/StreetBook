@@ -9,5 +9,5 @@ public class StreetBookViewModel
 
     public Dictionary<string, int> HighScores { get; set; } = [];
 
-    public string PersonsJson => JsonSerializer.Serialize(Persons, PersonViewModelContext.Default.ListPersonViewModel);
+    public string PersonsJson => JsonSerializer.Serialize(Persons);
 }

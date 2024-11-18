@@ -17,7 +17,6 @@ public class StreetBookService(IHostEnvironment hostEnvironment) : IStreetBookSe
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true,
-        TypeInfoResolver = PersonViewModelContext.Default
     };
 
     public StreetBookViewModel GetStreetBook()
