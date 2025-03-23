@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using StreetBook.Services;
 using Microsoft.AspNetCore.OutputCaching;
 
-namespace BabyTracker.Controllers;
+namespace StreetBook.Controllers;
 
 [Route("")]
 public class HomeController(IStreetBookService streetBookService) : Controller
@@ -13,7 +13,13 @@ public class HomeController(IStreetBookService streetBookService) : Controller
     [Authorize]
     public IActionResult Index()
     {
-        var viewModel = streetBookService.GetStreetBook();
+        var (viewModel, errorMessage) = streetBookService.GetStreetBook();
+
+        if (!string.IsNullOrEmpty(errorMessage))
+        {
+            TempData["notificationMessage"] = errorMessage;
+            TempData["notificationType"] = "danger";
+        }
 
         ViewBag.GutterWidth = 0;
 

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.OutputCaching;
 using StreetBook.Services;
 
-namespace BabyTracker.Controllers;
+namespace StreetBook.Controllers;
 
 [Route("[controller]")]
 public class PictureController(IPictureService pictureService,

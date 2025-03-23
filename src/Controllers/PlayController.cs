@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 using System.Threading.Tasks;
 
-namespace BabyTracker.Controllers;
+namespace StreetBook.Controllers;
 
 [Route("[controller]")]
 public class PlayController(
@@ -16,13 +16,18 @@ public class PlayController(
     [Authorize]
     public async Task<IActionResult> Index()
     {
-        var viewModel = streetBookService.GetStreetBook();
+        var (viewModel, errorMessage) = streetBookService.GetStreetBook();
 
-        viewModel.Persons = viewModel.Persons
+        if (!string.IsNullOrEmpty(errorMessage))
+        {
+            TempData["notificationMessage"] = errorMessage;
+            TempData["notificationType"] = "danger";
+        }
+
+        viewModel.Persons = [.. viewModel.Persons
             .Where(person => person.HasPicture && person.FirstName != "-")
             .OrderBy(a => Guid.NewGuid())
-            .Take(5)
-            .ToList();
+            .Take(5)];
 
         viewModel.HighScores = await playService.GetHighScores();
 
