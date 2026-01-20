@@ -70,7 +70,7 @@ Data loaded will be cached in memory, if changes are made you can clear the cach
 ## Building
 
 ### Dependencies
-- DotNet 8
+- .NET 10
 - NodeJS
 
 ### Configuration

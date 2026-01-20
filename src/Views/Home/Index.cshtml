@@ -66,16 +66,17 @@
     </tbody>
 </table>
 
+<dialog closedby="any">
+</dialog>
+
 @section Stylesheets
 {
     <link rel="stylesheet" href="/css/tabulator_bootstrap5.min.css" />
-    <link rel="stylesheet" href="/css/magnific-popup.css" />
 }
 
 @section Scripts
 {
     <script src="/js/tabulator.min.js"></script>
-    <script src="/js/jquery.magnific-popup.min.js"></script>
 
     <script>
         var table = new Tabulator("#streetBookTable", {
@@ -85,7 +86,7 @@
             height:"100%",
             columns:[
                 { title:"Nr.", field:"houseNumber", resizable:false },
-                { title:"Foto", field:"photo", resizable:false, responsive:0, formatter:function(cell, formatterParams, onRendered) {                    
+                { title:"Foto", field:"photo", resizable:false, responsive:0, formatter:function(cell, formatterParams, onRendered) {
                     var image = document.createElement("img");
                     image.setAttribute("src", cell.getValue());
                     image.setAttribute("class", "img-thumbnail");
@@ -93,13 +94,13 @@
                     image.addEventListener("load", function(){
                         cell.getRow().normalizeHeight();
                     });
+                    image.addEventListener("click", function() {
+                        const dialog = document.querySelector("dialog");
+                        dialog.innerHTML = `<img src="${image.getAttribute("src")}" class="img-fluid" style="max-height: 60vh" />`;
+                        dialog.showModal();
+                    });
 
-                    var link = document.createElement("a");
-                    link.setAttribute("href", cell.getValue());
-                    link.setAttribute("class", "profile-pic");
-                    link.appendChild(image);
-
-	                return link;
+	                return image;
                 }, },
                 { title:"Info", field:"info", formatter:"html", resizable:false, responsive:0 },
                 { title:"IsDisabled", field:"isDisabled", visible:false },
@@ -114,10 +115,6 @@
         });
 
         $(document).ready(function() {
-            $('.profile-pic').magnificPopup({
-                type: 'image'
-            });
-
             document.getElementById("houseNumberInput").addEventListener("input", (event) => {
                 removeFilter("houseNumber");
                 if (event.target.value !== '') {

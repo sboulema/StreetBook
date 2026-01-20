@@ -79,22 +79,28 @@
     </div>
 </div>
 
-@section Stylesheets
-{
-    <link rel="stylesheet" href="/css/magnific-popup.css" />
-}
+<dialog closedby="any">
+</dialog>
 
 @section Scripts
 {
-    <script src="/js/jquery.magnific-popup.min.js"></script>
-
     <script>
         var index = 0;
         var score = 0;
         var turns = @Html.Raw(Model.PersonsJson);
 
         $(document).ready(function() {
-            $("#profile-pic").attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);
+            const dialog = document.querySelector("dialog");
+            const profilePic = document.getElementById("profile-pic");
+
+            $("#profile-pic")
+                .attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);
+
+            profilePic
+                .addEventListener("click", function() {
+                    dialog.innerHTML = `<img src="${profilePic.getAttribute("src")}" class="img-fluid" style="max-height: 60vh" />`;
+                    dialog.showModal();
+                });
 
             $('#submit-btn').on({
                 'click': function() {
@@ -154,7 +160,7 @@
                             .val("")
                             .removeClass("is-valid")
                             .removeClass("is-invalid");
-                        
+
                         $("#profile-pic").attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);
 
                         $('#submit-btn-text').text("Beantwoorden");
@@ -169,10 +175,6 @@
                     }
                 }
             });
-
-            $('#profile-pic').magnificPopup({
-                type: 'image'
-            });
-        }); 
+        });
     </script>
 }
