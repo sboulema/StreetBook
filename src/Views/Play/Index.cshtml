@@ -89,12 +89,19 @@
         var score = 0;
         var turns = @Html.Raw(Model.PersonsJson);
 
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const dialog = document.querySelector("dialog");
             const profilePic = document.getElementById("profile-pic");
+            const submitBtn = document.getElementById("submit-btn");
+            const submitBtnText = document.getElementById("submit-btn-text");
+            const submitBtnIcon = document.getElementById("submit-btn-icon");
+            const firstNameInput = document.getElementById("firstName-input");
+            const houseNumberInput = document.getElementById("houseNumber-input");
+            const scoreDisplay = document.getElementById("score");
+            const answerDisplay = document.getElementById("answer");
+            const progressBar = document.getElementById("progress-bar");
 
-            $("#profile-pic")
-                .attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);
+            profilePic.src = `/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`;
 
             profilePic
                 .addEventListener("click", function() {
@@ -102,79 +109,84 @@
                     dialog.showModal();
                 });
 
-            $('#submit-btn').on({
-                'click': function() {
-                    if ($('#submit-btn-text').text() == "Beantwoorden")
+            submitBtn
+                .addEventListener("click", function() {
+                    if (submitBtnText.textContent == "Beantwoorden")
                     {
                         // Check if first name matches
-                        if ($("#firstName-input").val().trim()
+                        if (firstNameInput.value.trim()
                             .localeCompare(turns[index].FirstName, "nl", { sensitivity: 'base' }) == 0) {
-                            $("#firstName-input").addClass("is-valid")
+                            firstNameInput.classList.add("is-valid");
                             score++;
                         }
                         else {
-                            $("#firstName-input").addClass("is-invalid")
+                            firstNameInput.classList.add("is-invalid");
                         }
 
                         // Check if house number matches
-                        if ($("#houseNumber-input").val() == turns[index].HouseNumber) {
-                            $("#houseNumber-input").addClass("is-valid")
+                        if (houseNumberInput.value == turns[index].HouseNumber) {
+                            houseNumberInput.classList.add("is-valid");
                             score++;
                         }
                         else {
-                            $("#houseNumber-input").addClass("is-invalid")
+                            houseNumberInput.classList.add("is-invalid");
                         }
 
-                        $("#score").text(`Punten: ${score}`);
+                        scoreDisplay.innerText = `Punten: ${score}`;
 
-                        $("#answer").html(`Voornaam: ${turns[index].FirstName}<br/>Huisnummer: ${turns[index].HouseNumber}`);
-                        $("#answer").removeClass("d-none");
+                        answerDisplay.innerHTML = `Voornaam: ${turns[index].FirstName}<br/>Huisnummer: ${turns[index].HouseNumber}`;
+                        answerDisplay.classList.remove("d-none");
 
-                        $("#progress-bar").css("width", `${((index + 1) / turns.length) * 100}%`);
+                        progressBar.style.width = `${((index + 1) / turns.length) * 100}%`;
 
                         if (index == turns.length - 1) {
-                            $("#playerName-wrapper").removeClass("d-none");
-                            $('#submit-btn-text').text("Score opslaan");
-                            $('#submit-btn-icon')
-                                .removeClass("fa-arrow-right")
-                                .addClass("fa-floppy-disk");
+                            document.getElementById("playerName-wrapper").classList.remove("d-none");
+                            submitBtnText.textContent = "Score opslaan";
+                            submitBtnIcon.classList.remove("fa-arrow-right");
+                            submitBtnIcon.classList.add("fa-floppy-disk");
                         }
                         else {
-                            $('#submit-btn-text').text("Volgende");
-                            $('#submit-btn-icon')
-                                .removeClass("fa-circle-question")
-                                .addClass("fa-arrow-right");
+                            submitBtnText.textContent = "Volgende";
+                            submitBtnIcon.classList.remove("fa-circle-question");
+                            submitBtnIcon.classList.add("fa-arrow-right");
                         }
                     }
-                    else if ($('#submit-btn-text').text() == "Volgende") {
-                        $("#answer").empty();
-                        $("#answer").addClass("d-none");
+                    else if (submitBtnText.textContent == "Volgende")
+                    {
+                        answerDisplay.innerHTML = "";
+                        answerDisplay.classList.add("d-none");
 
                         index++;
 
-                        $("#firstName-input")
-                            .val("")
-                            .removeClass("is-valid")
-                            .removeClass("is-invalid");
-                        $("#houseNumber-input")
-                            .val("")
-                            .removeClass("is-valid")
-                            .removeClass("is-invalid");
+                        firstNameInput.value = "";
+                        firstNameInput.classList.remove("is-valid");
+                        firstNameInput.classList.remove("is-invalid");
 
-                        $("#profile-pic").attr("src",`/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`);
+                        houseNumberInput.value = "";
+                        houseNumberInput.classList.remove("is-valid");
+                        houseNumberInput.classList.remove("is-invalid");
 
-                        $('#submit-btn-text').text("Beantwoorden");
-                        $('#submit-btn-icon')
-                            .removeClass("fa-arrow-right")
-                            .addClass("fa-circle-question");
+                        profilePic.src = `/picture/${turns[index].HouseNumber}_${turns[index].FirstName.toLowerCase()}`;
+
+                        submitBtnText.textContent = "Beantwoorden";
+                        submitBtnIcon.classList.remove("fa-arrow-right");
+                        submitBtnIcon.classList.add("fa-circle-question");
                     }
-                    else if ($('#submit-btn-text').text() == "Score opslaan") {
-                        $.post("/play/highscores", { name: `${$("#playerName-input").val()}`, score: score }, function( data ) {
-                            location.reload();
-                        });
+                    else if (submitBtnText.textContent == "Score opslaan")
+                    {
+                        fetch("/play/highscores", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                name: document.getElementById("playerName-input").value,
+                                score: score
+                            })
+                        })
+                        .then(response => location.reload());
                     }
-                }
-            });
+                });
         });
     </script>
 }

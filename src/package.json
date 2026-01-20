@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "bootstrap": "5.3.8",
-    "jquery": "3.7.1",
     "tabulator-tables": "6.3.1"
   }
 }
