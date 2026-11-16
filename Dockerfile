@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS sdk
+FROM mcr.microsoft.com/dotnet/sdk:11.0-alpine AS sdk
 RUN apk add --no-cache npm
 WORKDIR /app
 COPY . .
